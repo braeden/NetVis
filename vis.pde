@@ -7,10 +7,7 @@ import java.util.Iterator;
 CarnivoreP5 c;
 ArrayList<Node> nodes = new ArrayList<Node>();
 ArrayList<Packet> packets = new ArrayList<Packet>();
-//ArrayList<String> IPs = new ArrayList<String>();
 HashMap<String,Node> hm = new HashMap<String,Node>();
-
-
 
 void setup(){
   fullScreen();
@@ -35,26 +32,6 @@ void draw(){
       //IPs.remove(curNode.IP);
     }
   }
-  //for (Map.Entry iter : hm.entrySet()) {
-    //Node curNode = (Node)iter.getValue();
-   // String curIP = (String)iter.getKey();
-   // if (curNode != null) {
-    //curNode.draw();
-   // }
-   // if (second()-curNode.s > 2000 && curNode.radius == 5) {
-      //hm.put(curIP, null);
-      //iter.remove();
-      //IPs.remove(curNode.IP);
-   // }
-  //}
-  /*for (Iterator<Map.Entry<String, Node>> cur = hm.entrySet().iterator(); cur.hasNext(); ) {
-    Map.Entry<String, Node> entry = cur.next();
-    Node curNode = (Node)entry.getValue();
-    String curIP = (String)entry
-    if (second()-curNode.s > 2000 && curNode.radius == 5) {
-      //entry.remove();
-    }
-  }*/
  for (int i = 0; i < packets.size(); i++) {
     Packet curPack = packets.get(i);
     if (curPack != null) {
@@ -71,23 +48,7 @@ void packetEvent(CarnivorePacket p){
   //text("(" + p.strTransportProtocol + " packet) " + p.senderSocket() + " > " + p.receiverSocket(), 500, 500);
   String rIP = p.receiverAddress.ip.toString();
   String sIP = p.senderAddress.ip.toString();
-  /*Node source = nodes.get(nodes.size()-1);
-  Node dest = nodes.get(nodes.size()-1);
-  if (IPs.contains(rIP)) {
-    for (int i = 0; i < nodes.size(); i++) {
-      Node curNode = nodes.get(i);
-      if (rIP.equals(curNode.IP)) {
-        if (curNode.radius < 100) {
-          curNode.radius+=1;
-        }        
-        dest = curNode;
-      }
-    }
-  } else {
-    IPs.add(rIP);
-    nodes.add(new Node(rIP));
-    dest = nodes.get(nodes.size()-1);
-  }*/
+
   Node source = hm.get(sIP);
   Node dest = hm.get(rIP);
   if (source != null) {
@@ -109,20 +70,7 @@ void packetEvent(CarnivorePacket p){
     hm.put(rIP, nodes.get(nodes.size()-1));
     dest = nodes.get(nodes.size()-1);
   }
-  /*
-  if (IPs.contains(sIP)) {
-    for (int i = 0; i < nodes.size(); i++) {
-      Node curNode = nodes.get(i);
-      if (sIP.equals(curNode.IP)) {   
-        source = curNode;
-      }
-    }
-  } else {
-    IPs.add(sIP);
-    nodes.add(new Node(sIP));
-    source = nodes.get(nodes.size()-1);
-  }
-  */
+  
   packets.add(new Packet(source, dest));    
   
 }
