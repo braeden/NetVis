@@ -80,7 +80,7 @@ class Node {
   color col = color(int(random(0,255)), int(random(0,255)), int(random(0,255)));
   String IP;
   String host;
-  int packets;
+  //int packets;
   InetAddress inetHost;
   Node(String IP_) {
     IP = IP_;
